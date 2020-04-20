@@ -153,6 +153,7 @@ public class Controller implements Initializable {
     }
     public void initialize(URL url, ResourceBundle rBundle) {
         // TODO Auto-generated method stub
+        // close_btn.setStyle("-fx-background-image: url('/images/c.png')");
         data = read_data();
         addAll(data);
      
