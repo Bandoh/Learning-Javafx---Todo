@@ -1,0 +1,60 @@
+.button { 
+    -fx-background-color: #64dd17; 
+    /* -fx-text-fill: black;  */
+ }
+ .out-btn{
+    -fx-background-color: white; 
+     -fx-border-color:red;
+     -fx-color:black;
+     -fx-text-fill:black;
+ }
+ .labelstate{
+    -fx-background-color: white;
+    -fx-border-color:red;
+    -fx-border-radius:0.5em;
+    -fx-padding:1px; 
+    -fx-border-width:2px;
+ }
+
+
+ .text-field {
+    -fx-background-color: -fx-text-box-border, -fx-background ;
+    -fx-background-insets: 0, 0 0 1 0 ;
+    -fx-background-radius: 0 ;
+}
+.text-field:focused {
+    -fx-background-color: -fx-focus-color, -fx-background ;
+}
+
+.list-view{
+    -fx-background-color:none;
+}
+
+.list-cell{
+   
+    -fx-background-color:white;
+    -fx-margin:2px;
+}
+.list-cell:filled:selected:focused, .list-cell:filled:selected{
+    -fx-background-color:#64dd17;
+    -fx-text-fill: black;
+    -fx-color:black;
+}
+
+.hbox{
+    /* -fx-background-color:#9cff57; */
+    /* -fx-padding:10px; */
+}
+
+.check-box .box {
+    -fx-border:10px;
+    -fx-border-radius:70%;
+    -fx-background-radius:70%; /* enter you're desired radius here */;
+    -fx-background-color: white;
+    -fx-border-color:black;
+  }
+
+  .close-btn{
+    -fx-background-color:transparent;
+    -fx-background-radius:5em;
+  }
