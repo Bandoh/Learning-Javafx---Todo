@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
+import javafx.animation.TranslateTransition;
+import javafx.animation.Animation.Status;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.Initializable;
@@ -25,8 +27,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class Controller implements Initializable {
 
@@ -37,6 +41,7 @@ public class Controller implements Initializable {
     public Scene scene;
     public Stage stage;
     CheckBox checkBox;
+    public Pane main_pane;
     File f = new File("here.txt");
     FileWriter fw;
     FileReader fr;
