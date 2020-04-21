@@ -18,7 +18,7 @@ public class Todo extends Application {
         scene.getStylesheets().add("css/s.css");
         stage.setScene(scene);
 
-        // stage.initStyle(StageStyle.UNDECORATED);
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle("BanTodo");
         stage.show();
     }

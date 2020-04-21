@@ -11,9 +11,24 @@
  .labelstate{
     -fx-background-color: white;
     -fx-border-color:red;
-    -fx-border-radius:0.5em;
-    -fx-padding:1px; 
+    -fx-border-radius:0.2em;
+    -fx-padding:5px 10px 5px 10px; 
     -fx-border-width:2px;
+    -fx-color:red;
+    -fx-text-fill:red;
+ }
+
+ .side_buttons{
+    -fx-background-color: transparent; 
+    -fx-border-color:white;
+    -fx-border-width:0px 0px 0px 0px;
+ }
+
+ .side_buttons:hover{
+    -fx-background-color: rgb(255, 255, 255);
+    -fx-color:black;
+    -fx-text-fill:black; 
+    
  }
 
 
@@ -23,7 +38,7 @@
     -fx-background-radius: 0 ;
 }
 .text-field:focused {
-    -fx-background-color: -fx-text-box-border, 64dd17 ;
+    /* -fx-background-color: -fx-text-box-border, #64dd17 ; */
 }
 
 .list-view{

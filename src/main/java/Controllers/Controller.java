@@ -4,32 +4,35 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-
+import javafx.fxml.FXMLLoader;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
-import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Controller implements Initializable {
 
-    public Button add_btn;
     public Button close_btn;
-    public TextField get_input;
+    public Button side_add;
+    public BorderPane bp;
     public VBox todo_list;
     public Scene scene;
     public Stage stage;
@@ -49,6 +52,7 @@ public class Controller implements Initializable {
         String all = "";
         for (Map<String, String> i : data) {
             if (i.get("text").trim().equals(d.trim())) {
+
                 i.remove("text");
                 i.remove("complete");
                 todo_list.getChildren().clear();
@@ -61,7 +65,7 @@ public class Controller implements Initializable {
         System.out.println(all.trim());
         // write_to_file("", false);
         write_to_file(all.trim(), false);
-        List<Map<String, String>> data1  = read_data();
+        List<Map<String, String>> data1 = read_data();
         addAll(data1);
     }
 
@@ -71,9 +75,9 @@ public class Controller implements Initializable {
         checkBox = new CheckBox();
         Insets pad = new Insets(0.0, 5.0, 0.0, 5.0);
         System.out.println(checkBox.getStyle());
-        this.scene = (Scene) add_btn.getScene();
         Label label = new Label();
         label.setText(a);
+        label.setPrefWidth(350.0);
         HBox hBox = new HBox();
         hBox.getStyleClass().add("hbox");
         checkBox.setPadding(pad);
@@ -88,13 +92,17 @@ public class Controller implements Initializable {
                 }
             }
         });
-        hBox.getChildren().addAll(checkBox, label);
+        Label l = new Label("completed");
+        l.setPrefSize(130.0, 50.0);
+        l.setPadding(new Insets(5.0, 5.0, 5.0, 5.0));
+        l.getStyleClass().add("labelstate");
+        l.setAlignment(Pos.CENTER);
+        hBox.getChildren().addAll(checkBox, label );
         todo_list.getChildren().addAll(hBox, s);
         // todo_list.getItems().addAll(vbox);
-        get_input.setText("");
     }
 
-    private void write_to_file(String s, boolean a) {
+    public void write_to_file(String s, boolean a) {
         try {
             fw = new FileWriter(f, a);
             if (a) {
@@ -110,8 +118,8 @@ public class Controller implements Initializable {
         }
     }
 
-    public void add() {
-        String text = get_input.getText();
+    public void add(String text) {
+        // String text = get_input.getText();
         populate(text);
         write_to_file(text, true);
 
@@ -146,16 +154,41 @@ public class Controller implements Initializable {
         return d;
     }
 
-    private void addAll(List<Map<String, String> >data){
+    private void addAll(List<Map<String, String>> data) {
         for (Map<String, String> i : data) {
             populate(i.get("text"));
         }
     }
+
     public void initialize(URL url, ResourceBundle rBundle) {
         // TODO Auto-generated method stub
         // close_btn.setStyle("-fx-background-image: url('/images/c.png')");
         data = read_data();
         addAll(data);
-     
+
     }
+
+    public void goto_add() throws IOException {
+
+        changeScene("ui/addTodoPage.fxml");
+    }
+
+    private void changeScene( String fxml) throws IOException {
+        Parent root;
+        root = FXMLLoader.load(getClass().getClassLoader().getResource(fxml));
+            bp.setCenter(root);
+            // bp.getChildren().add(fxmlLoader);
+  
+
+       
+    }
+
+    public void list_todos() {
+    }
+
+    public void ideas() {
+    }
+
 }
+
+
