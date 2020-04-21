@@ -1,10 +1,9 @@
-Remember to code
-Sweep the house
-Do assignment
-Castro
-Do the diagram
-Go to school
-Just Dishes
-Add new
-Dish
-
+Remember to code;2020-04-22;false
+Do assignment;2020-04-22;true
+Castro;2020-04-22;false
+Do the diagram;2020-04-22;true
+Go to school;2020-04-22;true
+Just Dishes;2020-04-22;false
+Add new;2020-04-22;true
+Dish;2020-04-22;true
+Do Panford;2020-04-22;true

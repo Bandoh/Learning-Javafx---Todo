@@ -8,14 +8,23 @@
      -fx-color:black;
      -fx-text-fill:black;
  }
- .labelstate{
+ .labelstatefalse{
     -fx-background-color: white;
-    -fx-border-color:red;
+    -fx-border-color:#f44336;
     -fx-border-radius:0.2em;
     -fx-padding:5px 10px 5px 10px; 
     -fx-border-width:2px;
-    -fx-color:red;
-    -fx-text-fill:red;
+    -fx-color:#f44336;
+    -fx-text-fill:#f44336;
+ }
+ .labelstatetrue{
+    -fx-background-color: white;
+    -fx-border-color:#4CAF50;
+    -fx-border-radius:0.2em;
+    -fx-padding:5px 10px 5px 10px; 
+    -fx-border-width:2px;
+    -fx-color:#4CAF50;
+    -fx-text-fill:#4CAF50;
  }
 
  .side_buttons{

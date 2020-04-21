@@ -6,6 +6,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -59,11 +62,11 @@ public class Controller implements Initializable {
             if (i.get("text").trim().equals(d.trim())) {
 
                 i.remove("text");
-                i.remove("complete");
+                i.remove("urgency");
                 todo_list.getChildren().clear();
 
             } else {
-                all += i.get("text").trim() + "\n";
+                all += i.get("text").trim()+";"+i.get("due")+";"+i.get("urgency") + "\n";
             }
 
         }
@@ -74,15 +77,16 @@ public class Controller implements Initializable {
         addAll(data1);
     }
 
-    private void populate(String a) {
-
+    private void populate(String a,String b,String c) {
+        LocalDate d = LocalDate.parse(b);
+       String dueDate =  d.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL));
         Separator s = new Separator();
         checkBox = new CheckBox();
         Insets pad = new Insets(0.0, 5.0, 0.0, 5.0);
         System.out.println(checkBox.getStyle());
         Label label = new Label();
         label.setText(a);
-        label.setPrefWidth(350.0);
+        label.setPrefWidth(480.0);
         HBox hBox = new HBox();
         hBox.getStyleClass().add("hbox");
         checkBox.setPadding(pad);
@@ -97,13 +101,23 @@ public class Controller implements Initializable {
                 }
             }
         });
-        Label l = new Label("completed");
-        l.setPrefSize(130.0, 50.0);
-        l.setPadding(new Insets(5.0, 5.0, 5.0, 5.0));
-        l.getStyleClass().add("labelstate");
+        Label la = new Label(dueDate);
+        // vBox.getChildren().addAll(b);
+        Label l ;
+        if(new Boolean(c)){
+            l = new Label("Normal");
+            l.getStyleClass().add("labelstatetrue");
+        }
+        else{
+            l = new Label("Urgent");
+            l.getStyleClass().add("labelstatefalse");
+        }
+        la.setStyle("-fx-font-weight: bold");
+        // l.setPrefSize(130.0, 50.0);
+        // l.setPadding(new Insets(5.0, 5.0, 5.0, 5.0));
         l.setAlignment(Pos.CENTER);
-        hBox.getChildren().addAll(checkBox, label );
-        todo_list.getChildren().addAll(hBox, s);
+        hBox.getChildren().addAll(checkBox, label,l );
+        todo_list.getChildren().addAll(la, hBox,s);
         // todo_list.getItems().addAll(vbox);
     }
 
@@ -125,7 +139,7 @@ public class Controller implements Initializable {
 
     public void add(String text) {
         // String text = get_input.getText();
-        populate(text);
+        populate(text,"","");
         write_to_file(text, true);
 
     }
@@ -145,8 +159,10 @@ public class Controller implements Initializable {
             String line;
             while ((line = br.readLine()) != null) {
                 Map<String, String> aMap = new HashMap<String, String>();
-                aMap.put("text", line);
-                aMap.put("complete", "false");
+                String[]a = line.split(";");
+                aMap.put("text", a[0]);
+                aMap.put("due", a[1]);
+                aMap.put("urgency", a[2]);
                 d.add(aMap);
             }
             // return d;
@@ -161,7 +177,7 @@ public class Controller implements Initializable {
 
     private void addAll(List<Map<String, String>> data) {
         for (Map<String, String> i : data) {
-            populate(i.get("text"));
+            populate(i.get("text"),i.get("due"),i.get("urgency"));
         }
     }
 
