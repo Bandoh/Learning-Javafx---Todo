@@ -1,3 +1,4 @@
 Finish up Information Systems assignment;2020-04-30;true;false
 Read on Click and Brick Strategy;2020-04-25;false;false
 Read on Assignment 2;2020-04-27;false;false
+Start Essay for Assignment 1;2020-04-27;true;false

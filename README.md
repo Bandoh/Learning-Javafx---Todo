@@ -2,4 +2,4 @@
 
 Minimalistic Todo app
 
-![alt text](./mini.png)
+![alt text](./tt.mp4)
