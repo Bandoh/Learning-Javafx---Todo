@@ -4,51 +4,162 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane fx:id="bp" prefHeight="541.0" prefWidth="761.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.Controller">
+<BorderPane fx:id="bp" prefHeight="541.0" prefWidth="804.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.Controller">
    <left>
-      <Pane fx:id="main_pane" prefHeight="410.0" prefWidth="130.0" style="-fx-background-color: #43A047;" stylesheets="@../css/s.css" BorderPane.alignment="CENTER">
+      <Pane fx:id="main_pane" prefHeight="505.0" prefWidth="171.0" style="-fx-background-color: white; -fx-border-color: none black black;" stylesheets="@../css/s.css" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" layoutX="29.0" layoutY="14.0" prefHeight="32.0" prefWidth="73.0" text="BanTodo" textFill="WHITE">
+            <Button fx:id="side_add" alignment="BOTTOM_LEFT" layoutX="-1.0" layoutY="111.0" mnemonicParsing="false" onMouseClicked="#goto_add" prefHeight="42.0" prefWidth="171.0" styleClass="side_buttons" stylesheets="@../css/s.css" text="Add" textFill="WHITE">
                <font>
-                  <Font size="15.0" />
+                  <Font size="12.0" />
+               </font></Button>
+            <Button fx:id="home_btn" alignment="BOTTOM_LEFT" layoutX="1.0" layoutY="69.0" mnemonicParsing="false" onAction="#go_home" prefHeight="42.0" prefWidth="171.0" styleClass="side_buttons" stylesheets="@../css/s.css" text="Home" textFill="#111010">
+               <font>
+                  <Font size="12.0" />
+               </font></Button>
+            <Button layoutX="-1.0" layoutY="27.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="131.0" style="-fx-background-color: white; -fx-text-fill: -fx-primary-color1; -fx-border-width: 2px;" stylesheets="@../css/s.css" text="  Menu" textFill="#174012">
+               <font>
+                  <Font size="12.0" />
                </font>
-            </Label>
-            <Button fx:id="side_add" layoutY="103.0" mnemonicParsing="false" onMouseClicked="#goto_add" prefHeight="42.0" prefWidth="130.0" styleClass="side_buttons" stylesheets="@../css/s.css" text="Add" textFill="WHITE" />
-            <Button fx:id="side_list" layoutY="145.0" mnemonicParsing="false" onMouseClicked="#list_todos" prefHeight="42.0" prefWidth="130.0" styleClass="side_buttons" stylesheets="@../css/s.css" text="List todos" textFill="WHITE" />
-            <Button fx:id="side_ideas" layoutY="187.0" mnemonicParsing="false" onMouseClicked="#ideas" prefHeight="42.0" prefWidth="130.0" styleClass="side_buttons" stylesheets="@../css/s.css" text="Ideas" textFill="WHITE" />
+            </Button>
+            <Button layoutX="-1.0" layoutY="156.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="131.0" style="-fx-background-color: white; -fx-text-fill: -fx-primary-color1; -fx-border-width: 2px;" stylesheets="@../css/s.css" text="        Categories" textFill="#174012">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="today_btn" alignment="BOTTOM_LEFT" layoutY="199.0" mnemonicParsing="false" onAction="#filter_today" prefHeight="42.0" prefWidth="171.0" styleClass="side_buttons" stylesheets="@../css/s.css" text="Today" textFill="WHITE">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="upcoming_btn" alignment="BOTTOM_LEFT" layoutX="-1.0" layoutY="241.0" mnemonicParsing="false" onAction="#filter_upcoming" prefHeight="42.0" prefWidth="171.0" styleClass="side_buttons" stylesheets="@../css/s.css" text="Upcoming" textFill="WHITE">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="important_btn" alignment="BOTTOM_LEFT" layoutY="283.0" mnemonicParsing="false" onAction="#filter_important" prefHeight="42.0" prefWidth="171.0" styleClass="side_buttons" stylesheets="@../css/s.css" text="Important" textFill="WHITE">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="complete_btn" alignment="BOTTOM_LEFT" layoutX="1.0" layoutY="367.0" mnemonicParsing="false" onAction="#filter_complete" prefHeight="42.0" prefWidth="171.0" styleClass="side_buttons" stylesheets="@../css/s.css" text="Completed" textFill="WHITE">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="overdue_btn" alignment="BOTTOM_LEFT" layoutX="-1.0" layoutY="325.0" mnemonicParsing="false" onAction="#filter_overdue" prefHeight="42.0" prefWidth="171.0" styleClass="side_buttons" stylesheets="@../css/s.css" text="Overdue" textFill="WHITE">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="22.0" fitWidth="16.0" layoutX="14.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/add.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="22.0" fitWidth="16.0" layoutX="14.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/today.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="22.0" fitWidth="16.0" layoutX="14.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/upcoming.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="22.0" fitWidth="16.0" layoutX="14.0" layoutY="296.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/important.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="22.0" fitWidth="16.0" layoutX="14.0" layoutY="338.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/overdue.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="22.0" fitWidth="16.0" layoutX="14.0" layoutY="380.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/complete.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="22.0" fitWidth="16.0" layoutX="14.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/home.png" />
+               </image>
+            </ImageView>
+            <Pane layoutX="168.0" layoutY="-19.0" prefHeight="525.0" prefWidth="2.0" style="-fx-background-color: #E0E0E0;" />
+            <Button fx:id="all_btn" alignment="BOTTOM_LEFT" layoutX="2.0" layoutY="409.0" mnemonicParsing="false" onAction="#filter_all" prefHeight="42.0" prefWidth="166.0" styleClass="side_buttons" stylesheets="@../css/s.css" text="All" textFill="WHITE">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="22.0" fitWidth="16.0" layoutX="14.0" layoutY="423.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/complete.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </left>
    <center>
-      <Pane fx:id="main_pane" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+      <Pane fx:id="main_pane" prefHeight="505.0" prefWidth="637.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane layoutY="43.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="499.0" prefWidth="629.0" style="-fx-background-color: white;">
+            <AnchorPane layoutX="-1.0" layoutY="26.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="630.0" style="-fx-background-color: white;">
                <children>
-                  <ScrollPane hbarPolicy="NEVER" layoutX="5.0" prefHeight="498.0" prefWidth="624.0" style="-fx-background-color: white;" vbarPolicy="NEVER">
+                  <ScrollPane hbarPolicy="NEVER" layoutX="5.0" prefHeight="453.0" prefWidth="634.0" style="-fx-background-color: white;" vbarPolicy="NEVER">
                      <content>
-                        <VBox fx:id="todo_list" prefHeight="497.0" prefWidth="623.0" spacing="20.0" style="-fx-background-color: white;">
+                        <VBox fx:id="todo_list" prefHeight="451.0" prefWidth="623.0" spacing="2.0" styleClass="vbox1" stylesheets="@../css/s.css">
                            <padding>
-                              <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+                              <Insets bottom="5.0" left="3.0" right="3.0" top="2.0" />
                            </padding>
                         </VBox>
                      </content>
                   </ScrollPane>
                </children>
             </AnchorPane>
-            <Button fx:id="close_btn" layoutX="604.0" layoutY="1.0" mnemonicParsing="false" onAction="#close_app" styleClass="close-btn" stylesheets="@../css/s.css" text="X" />
-            <Label layoutX="275.0" layoutY="17.0" text="All Todos" textAlignment="CENTER">
+            <Label layoutX="14.0" layoutY="4.0" style="-fx-text-fill: -fx-primary-color1;" stylesheets="@../css/s.css" text="TODOS" textAlignment="CENTER">
                <font>
-                  <Font size="18.0" />
+                  <Font size="12.0" />
                </font>
             </Label>
          </children>
       </Pane>
    </center>
+   <top>
+      <Pane prefHeight="36.0" prefWidth="804.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+         <children>
+            <Pane prefHeight="36.0" prefWidth="171.0" style="-fx-background-color: white;">
+               <children>
+                  <Label alignment="CENTER" layoutX="2.0" layoutY="2.0" prefHeight="32.0" prefWidth="171.0" style="-fx-text-fill: -fx-primary-color1;" stylesheets="@../css/s.css" text="BANTODO">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Pane layoutX="168.0" layoutY="1.0" prefHeight="55.0" prefWidth="2.0" style="-fx-background-color: #E0E0E0;" />
+               </children></Pane>
+            <ImageView fx:id="close_btn" fitHeight="20.0" fitWidth="17.0" layoutX="780.0" layoutY="10.0" onMouseClicked="#close_app" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/c.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="20.0" fitWidth="19.0" layoutX="759.0" layoutY="9.0" onMouseClicked="#close_app" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/max.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="25.0" fitWidth="17.0" layoutX="734.0" layoutY="10.0" onMouseClicked="#close_app" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/min.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+   </top>
 </BorderPane>

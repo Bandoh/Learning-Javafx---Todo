@@ -1,3 +1,4 @@
+// File Structure Todo| Date| Urgency | complete 
 package Controllers;
 
 import java.io.BufferedReader;
@@ -15,19 +16,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
-import javafx.animation.TranslateTransition;
-import javafx.animation.Animation.Status;
+import javafx.animation.FadeTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -36,9 +36,19 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class Controller implements Initializable {
+    private enum FilterBy {
+        ALL, TODAY, COMPLETED, UPCOMING, IMPORTANT,OVERDUE,UNCOMPLETED
+    }
 
-    public Button close_btn;
+    public ImageView close_btn;
     public Button side_add;
+    public Button home_btn;
+    public Button all_btn;
+    public Button important_btn;
+    public Button overdue_btn;
+    public Button complete_btn;
+    public Button today_btn;
+    public Button upcoming_btn;
     public BorderPane bp;
     public VBox todo_list;
     public Scene scene;
@@ -54,6 +64,76 @@ public class Controller implements Initializable {
 
     }
 
+    public void filter_overdue(){
+        data.clear();
+        todo_list.getChildren().clear();
+        data = read_data();
+        addAll(data, FilterBy.OVERDUE);
+
+    }
+    public void filter_important(){
+        data.clear();
+        todo_list.getChildren().clear();
+        data = read_data();
+        addAll(data, FilterBy.IMPORTANT);
+
+    }
+
+    public void filter_today(){
+        data.clear();
+        todo_list.getChildren().clear();
+        data = read_data();
+        addAll(data, FilterBy.TODAY);
+
+    }
+    public void filter_upcoming(){
+        data.clear();
+        todo_list.getChildren().clear();
+        data = read_data();
+        addAll(data, FilterBy.UPCOMING);
+
+    }
+    public void filter_complete(){
+        data.clear();
+        todo_list.getChildren().clear();
+        data = read_data();
+        addAll(data, FilterBy.COMPLETED);
+
+    }
+    public void filter_all(){
+        data.clear();
+        todo_list.getChildren().clear();
+        data = read_data();
+        addAll(data, FilterBy.ALL);
+
+    }
+
+
+    private void basicAnim(Node node) {
+        FadeTransition ft = new FadeTransition(Duration.millis(500), node);
+        ft.setFromValue(0.0);
+        ft.setToValue(0.8);
+        // ft.setFromX(100);
+        // ft.setToX(0.0);
+        ft.setCycleCount(1);
+        // ft.setAutoReverse(true);
+        ft.play();
+    }
+
+    public void goHome(Stage stage) throws IOException {
+
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("ui/todo.fxml"));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("css/s.css");
+
+        stage.setScene(scene);
+    }
+
+    public void go_home() throws IOException {
+        Stage stage = (Stage) home_btn.getScene().getWindow();
+        goHome(stage);
+    }
+
     private void delItem(String d) {
 
         List<Map<String, String>> data = read_data();
@@ -61,64 +141,61 @@ public class Controller implements Initializable {
         for (Map<String, String> i : data) {
             if (i.get("text").trim().equals(d.trim())) {
 
-                i.remove("text");
-                i.remove("urgency");
+                // i.remove("text");
+                // i.remove("urgency");
                 todo_list.getChildren().clear();
-
+                i.put("complete", "true");
+                all += i.get("text").trim() + ";" + i.get("due") + ";" + i.get("urgency")+";"+i.get("complete")+ "\n";
             } else {
-                all += i.get("text").trim()+";"+i.get("due")+";"+i.get("urgency") + "\n";
+                all += i.get("text").trim() + ";" + i.get("due") + ";" + i.get("urgency")+";"+i.get("complete")+ "\n";
             }
 
         }
-        System.out.println(all.trim());
-        // write_to_file("", false);
         write_to_file(all.trim(), false);
         List<Map<String, String>> data1 = read_data();
-        addAll(data1);
+        addAll(data1, FilterBy.UNCOMPLETED);
     }
 
-    private void populate(String a,String b,String c) {
+    private void populate(String a, String b, String c, String complete) {
         LocalDate d = LocalDate.parse(b);
-       String dueDate =  d.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL));
-        Separator s = new Separator();
+        String dueDate = d.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL));
         checkBox = new CheckBox();
-        Insets pad = new Insets(0.0, 5.0, 0.0, 5.0);
-        System.out.println(checkBox.getStyle());
+        if(new Boolean(complete)){
+            checkBox.setSelected(true);
+        }
         Label label = new Label();
         label.setText(a);
         label.setPrefWidth(480.0);
         HBox hBox = new HBox();
         hBox.getStyleClass().add("hbox");
-        checkBox.setPadding(pad);
         final String data = a;
         checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
 
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                // TODO Auto-generated method stub
                 if (newValue) {
-                    // System.out.println(a);
                     delItem(data);
                 }
             }
         });
         Label la = new Label(dueDate);
-        // vBox.getChildren().addAll(b);
-        Label l ;
-        if(new Boolean(c)){
+        Label l;
+        if (!new Boolean(c)) {
             l = new Label("Normal");
             l.getStyleClass().add("labelstatetrue");
-        }
-        else{
+        } else {
             l = new Label("Urgent");
             l.getStyleClass().add("labelstatefalse");
         }
-        la.setStyle("-fx-font-weight: bold");
-        // l.setPrefSize(130.0, 50.0);
-        // l.setPadding(new Insets(5.0, 5.0, 5.0, 5.0));
+        la.setStyle("-fx-font-weight: bold; -fx-text-fill:-fx-primary-color;");
         l.setAlignment(Pos.CENTER);
-        hBox.getChildren().addAll(checkBox, label,l );
-        todo_list.getChildren().addAll(la, hBox,s);
-        // todo_list.getItems().addAll(vbox);
+        hBox.getChildren().addAll(checkBox, label, l);
+        VBox vb = new VBox(10);
+        vb.getStyleClass().add("vbox2");
+        basicAnim(vb);
+        vb.getOnMouseEntered();
+        vb.getChildren().addAll(la, hBox);
+
+        todo_list.getChildren().addAll(vb);
     }
 
     public void write_to_file(String s, boolean a) {
@@ -133,13 +210,12 @@ public class Controller implements Initializable {
             fw.close();
         } catch (Exception e) {
             System.out.println(e);
-            // TODO: handle exception
         }
     }
 
     public void add(String text) {
         // String text = get_input.getText();
-        populate(text,"","");
+        populate(text, "", "","false");
         write_to_file(text, true);
 
     }
@@ -159,33 +235,78 @@ public class Controller implements Initializable {
             String line;
             while ((line = br.readLine()) != null) {
                 Map<String, String> aMap = new HashMap<String, String>();
-                String[]a = line.split(";");
+                String[] a = line.split(";");
                 aMap.put("text", a[0]);
                 aMap.put("due", a[1]);
                 aMap.put("urgency", a[2]);
+                aMap.put("complete", a[3]);
                 d.add(aMap);
             }
             // return d;
         } catch (Exception e) {
             d = null;
             System.out.println(e);
-            // TODO: handle exception
             // return null;
         }
         return d;
     }
 
-    private void addAll(List<Map<String, String>> data) {
+    private void addAll(List<Map<String, String>> data, FilterBy filter) {
+
         for (Map<String, String> i : data) {
-            populate(i.get("text"),i.get("due"),i.get("urgency"));
+            switch (filter) {
+                case UNCOMPLETED: {
+                    if(!new Boolean(i.get("complete"))){
+                        populate(i.get("text"), i.get("due"), i.get("urgency"), i.get("complete"));
+                    }
+                    break;
+                }
+                case COMPLETED: {
+                    if(new Boolean(i.get("complete"))){
+                        populate(i.get("text"), i.get("due"), i.get("urgency"), i.get("complete"));
+                    }
+                    break;
+                }
+                case IMPORTANT: {
+                    if(new Boolean(i.get("urgency"))){
+                        populate(i.get("text"), i.get("due"), i.get("urgency"), i.get("complete"));
+                    }
+                    break;
+                }
+                case TODAY: {
+                    LocalDate now = LocalDate.parse(i.get("due"));     
+                    if (LocalDate.now().equals(now)) {
+                        populate(i.get("text"), i.get("due"), i.get("urgency"), i.get("complete"));
+                    }
+                    break;
+                }
+                case UPCOMING: {
+                    LocalDate now = LocalDate.parse(i.get("due"));     
+                    if (LocalDate.now().isBefore(now)) {
+                        populate(i.get("text"), i.get("due"), i.get("urgency"), i.get("complete"));
+                    }
+                    break;
+                }
+                case OVERDUE: {
+                    LocalDate now = LocalDate.parse(i.get("due"));     
+                    if (LocalDate.now().isAfter(now)  && !new Boolean(i.get("complete"))) {
+                        populate(i.get("text"), i.get("due"), i.get("urgency"), i.get("complete"));
+                    }
+                    break;
+                }
+                default: {
+                    populate(i.get("text"), i.get("due"), i.get("urgency"), i.get("complete"));
+                    break;
+                }
+
+            }
+
         }
     }
 
     public void initialize(URL url, ResourceBundle rBundle) {
-        // TODO Auto-generated method stub
-        // close_btn.setStyle("-fx-background-image: url('/images/c.png')");
         data = read_data();
-        addAll(data);
+        addAll(data, FilterBy.UNCOMPLETED);
 
     }
 
@@ -194,22 +315,18 @@ public class Controller implements Initializable {
         changeScene("ui/addTodoPage.fxml");
     }
 
-    private void changeScene( String fxml) throws IOException {
+    private void changeScene(String fxml) throws IOException {
         Parent root;
         root = FXMLLoader.load(getClass().getClassLoader().getResource(fxml));
-            bp.setCenter(root);
-            // bp.getChildren().add(fxmlLoader);
-  
-
-       
+        basicAnim(root);
+        bp.setCenter(root);
     }
 
-    public void list_todos() {
+    public void listByToday() {
+
     }
 
     public void ideas() {
     }
 
 }
-
-

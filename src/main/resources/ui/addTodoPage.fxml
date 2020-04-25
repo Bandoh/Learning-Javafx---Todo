@@ -3,28 +3,23 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="406.0" prefWidth="584.0" style="-fx-background-color: white;" stylesheets="@../css/s.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AddController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="505.0" prefWidth="637.0" style="-fx-background-color: white;" stylesheets="@../css/s.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AddController">
    <children>
-      <Pane layoutX="63.0" layoutY="57.0" prefHeight="292.0" prefWidth="459.0" style="-fx-background-color: white;">
+      <Pane layoutX="90.0" layoutY="82.0" prefHeight="341.0" prefWidth="458.0" style="-fx-background-color: white;">
          <children>
             <TextArea fx:id="text_area" layoutX="21.0" layoutY="14.0" prefHeight="110.0" prefWidth="421.0" />
-            <DatePicker fx:id="date_picker" layoutX="24.0" layoutY="158.0" prefHeight="33.0" prefWidth="421.0" />
-            <Button fx:id="save_btn" layoutX="284.0" layoutY="245.0" mnemonicParsing="false" onAction="#add_todo" prefHeight="33.0" prefWidth="150.0" text="Save" />
-            <Button layoutX="24.0" layoutY="245.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="150.0" text="Cancel" />
-            <Separator layoutX="-6.0" layoutY="227.0" prefHeight="0.0" prefWidth="467.0" />
+            <DatePicker fx:id="date_picker" layoutX="21.0" layoutY="136.0" prefHeight="33.0" prefWidth="421.0" />
+            <Button fx:id="save_btn" layoutX="331.0" layoutY="249.0" mnemonicParsing="false" onAction="#add_todo" prefHeight="33.0" prefWidth="103.0" text="Save" />
+            <Button fx:id="cancel_btn" layoutX="181.0" layoutY="249.0" mnemonicParsing="false" onAction="#goToHome" prefHeight="33.0" prefWidth="103.0" style="-fx-background-color: #e53935;" styleClass="cancel-btn" text="Cancel" />
+            <Label layoutX="24.0" layoutY="204.0" prefHeight="16.0" prefWidth="67.0" text="Urgency:" />
+            <ToggleButton fx:id="tog_btn" layoutX="90.0" layoutY="198.0" mnemonicParsing="false" onAction="#toggleUrgency" text="Normal" />
          </children>
       </Pane>
-      <Label layoutX="179.0" layoutY="14.0" text="Add a new todo">
-         <font>
-            <Font size="29.0" />
-         </font>
-      </Label>
-      <Button fx:id="close_btn" layoutX="591.0" layoutY="1.0" mnemonicParsing="false" onAction="#close_app" styleClass="close-btn" stylesheets="@../css/s.css" text="X" />
+      <Label layoutX="64.0" layoutY="14.0" text="ADD NEW TODO" textFill="#33d716" />
    </children>
 </AnchorPane>
